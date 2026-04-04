@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>追星亮亮 — My ARMY Journey</title>
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>">
+</head>
+<body>
+
+<div id="game-container">
+
+  <!-- ======== TITLE SCREEN ======== -->
+  <div id="title-screen" class="screen active">
+    <div class="title-bg"></div>
+    <div class="title-content">
+      <h1>追星亮亮</h1>
+      <div class="subtitle">My ARMY Journey</div>
+      <div class="subtitle-en">BTS Star Chase</div>
+      <div class="title-buttons">
+        <button id="btn-new-game" class="btn btn-primary">✨ 開始新遊戲</button>
+        <button id="btn-continue" class="btn btn-secondary btn-locked">繼續遊戲</button>
+        <button id="btn-characters" class="btn btn-secondary">🦋 角色總覽</button>
+      </div>
+      <div style="margin-top:3rem; color:rgba(255,255,255,0.3); font-size:0.75rem; letter-spacing:2px;">
+        v1.0 · 柾國路線開放 · 其他路線即將推出
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== INTRO SCREEN ======== -->
+  <div id="intro-screen" class="screen">
+    <div class="intro-container">
+      <div class="intro-text" style="animation-delay:0s;">
+        我叫<span class="purple">王亮亮</span>，24歲，在台北一間科技公司當行銷助理。
+      </div>
+      <div class="intro-text" style="animation-delay:0.5s;">
+        生活看似普通，但我有一個不普通的夢想——
+      </div>
+      <div class="intro-text" style="animation-delay:1s;">
+        今年，我一定要親眼看到 <span class="highlight">BTS</span> 的演唱會。
+      </div>
+      <div class="intro-text" style="animation-delay:1.5s;">
+        為了這個目標，我要在<span class="highlight">12個月</span>內：<br>
+        💰 存夠演唱會基金<br>
+        📚 學會基本韓語<br>
+        🌟 成為真正的 ARMY<br>
+        💪 保持體力不要倒下
+      </div>
+      <div class="intro-text" style="animation-delay:2s;">
+        聽說今年BTS世界巡迴的首爾場在<span class="highlight">十二月</span>——<br>
+        我的追星之旅，從現在開始！
+      </div>
+      <div class="intro-text" style="animation-delay:2.8s;">
+        <em style="color:rgba(255,255,255,0.5);">...而命運，也許會在這條路上給我一個意想不到的驚喜。</em>
+      </div>
+      <div class="intro-text" style="animation-delay:3.5s;">
+        <button id="btn-start-journey" class="btn btn-accent">
+          💜 開始追星之旅
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== GAMEPLAY SCREEN ======== -->
+  <div id="gameplay-screen" class="screen">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div id="month-display" class="month-display">一月 第1週</div>
+      <div class="stats-display">
+        <div class="stat-item">
+          💰 <span id="stat-savings">$15,000</span>
+          <div class="stat-bar"><div id="fill-savings" class="stat-fill savings" style="width:15%"></div></div>
+        </div>
+        <div class="stat-item">
+          📚 <span id="stat-korean">5</span>
+          <div class="stat-bar"><div id="fill-korean" class="stat-fill korean" style="width:5%"></div></div>
+        </div>
+        <div class="stat-item">
+          🌟 <span id="stat-fan">10</span>
+          <div class="stat-bar"><div id="fill-fan" class="stat-fill fan" style="width:10%"></div></div>
+        </div>
+        <div class="stat-item">
+          💪 <span id="stat-stamina">80</span>
+          <div class="stat-bar"><div id="fill-stamina" class="stat-fill stamina" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Area -->
+    <div class="game-main">
+      <div class="action-panel">
+        <div class="panel-header">
+          <div class="panel-title">選擇本週行動</div>
+          <div id="actions-left" class="week-actions-left">剩餘行動：2 / 2</div>
+        </div>
+        <div id="action-grid" class="action-grid"></div>
+        <div class="panel-footer">
+          <button id="btn-rest" class="btn btn-rest" style="display:none;">
+            😴 休息恢復體力
+          </button>
+          <button id="next-week-btn" class="btn btn-next-week" style="display:none;">
+            下一週 →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Button -->
+    <button class="menu-btn" onclick="Game.showCharacterSelect()" title="角色總覽">🦋</button>
+  </div>
+
+  <!-- ======== VISUAL NOVEL SCREEN ======== -->
+  <div id="vn-screen" class="screen">
+    <div id="vn-bg" class="vn-bg"></div>
+    <div id="vn-character" class="vn-character" style="display:none;"></div>
+    <div class="vn-overlay"></div>
+    <div id="vn-dialog-box" class="vn-dialog-box">
+      <div id="vn-speaker" class="vn-speaker"></div>
+      <div id="vn-text" class="vn-text"></div>
+      <div id="vn-choices" class="vn-choices" style="display:none;"></div>
+      <div id="vn-continue" class="vn-continue" style="display:none;">▼ 點擊繼續</div>
+    </div>
+  </div>
+
+  <!-- ======== CHARACTER SELECT SCREEN ======== -->
+  <div id="character-screen" class="screen">
+    <div class="char-select-title">角色總覽</div>
+    <div class="char-select-sub">選擇角色查看路線進度</div>
+    <div id="char-grid" class="char-grid"></div>
+    <div style="text-align:center; margin: 1.5rem 0; padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 10px) + 1rem));">
+      <button class="btn btn-secondary btn-back" style="padding:14px 48px; font-size:1rem;">← 返回遊戲</button>
+    </div>
+  </div>
+
+  <!-- ======== ENDING SCREEN ======== -->
+  <div id="ending-screen" class="screen">
+    <div id="ending-content" class="ending-content"></div>
+  </div>
+
+</div>
+
+<!-- Loading / Preload Screen -->
+<div id="loading-screen" class="loading-screen">
+  <div class="spinner"></div>
+  <p id="loading-text">載入中...</p>
+  <div id="loading-bar-wrap" style="width:200px;height:4px;background:rgba(155,89,182,0.2);border-radius:2px;margin-top:12px;overflow:hidden;">
+    <div id="loading-bar-fill" style="width:0%;height:100%;background:var(--primary);border-radius:2px;transition:width 0.3s ease;"></div>
+  </div>
+</div>
+
+<!-- Result Overlay -->
+<div id="result-overlay" class="result-overlay">
+  <div class="result-card">
+    <h3 id="result-title">行動結果</h3>
+    <div id="result-stats" class="result-stats"></div>
+    <div id="result-encounter" style="display:none;"></div>
+    <button id="result-ok-btn" class="btn btn-primary btn-small">確認</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/characters.js?v=4"></script>
+<script src="js/jungkook.js?v=4"></script>
+<script src="js/taehyung.js?v=4"></script>
+<script src="js/jimin.js?v=4"></script>
+<script src="js/suga.js?v=4"></script>
+<script src="js/rm.js?v=4"></script>
+<script src="js/game.js?v=4"></script>
+
+</body>
+</html>
